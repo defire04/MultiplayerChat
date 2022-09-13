@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat</title>
+</head>
+<body>
+<p th:text="${'Chat: ' + chat.getName()}">VALUE</p>
+<p th:text="${'Owner: ' + chat.getOwner()}">VALUE</p>
+<p th:text="${'CratedAt: ' + chat.getCreatedAt()}">VALUE</p>
+<!--<p th:text="${'Message: '}">VALUE</p>-->
+
+
+<!--<div th:each="msg : ${messages}">-->
+<!--   <p th:text="${msg.getText()}">text</p>-->
+<!--</div>-->
+
+
+<form th:action="@{/chats/{id}/chat(id=${chat.getId()})}">
+    <input type="submit" value="Join!">
+</form>
+
+</body>
+</html>
