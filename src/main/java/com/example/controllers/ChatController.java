@@ -2,10 +2,12 @@ package com.example.controllers;
 
 import com.example.models.Chat;
 import com.example.models.Member;
+import com.example.security.MemberDetails;
 import com.example.services.ChatService;
 import com.example.services.MemberService;
 import com.example.services.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -44,13 +46,22 @@ public class ChatController {
     }
 
     @GetMapping("/{id}/chat")
-    public String chat(@ModelAttribute("member") Member member, Model model, @PathVariable("id") int id) {
+    public String chat(@PathVariable("id") int id) {
         System.out.println("------------------------");
-        Chat chat = chatService.findOne(id);
 
+        MemberDetails memberDetails = (MemberDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Member member = memberDetails.getPerson();
+
+        Chat chat = chatService.findOne(id);
         chat.getMembers().add(member);
 
         chatService.update(id, chat);
+
+////        System.out.println(member);
+//        System.out.println(member.getId());
+//        System.out.println(member.getUsername());
+
+
 
         return "chats/chat";
     }

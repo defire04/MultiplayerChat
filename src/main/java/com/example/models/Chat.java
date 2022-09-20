@@ -30,7 +30,7 @@ public class Chat {
     @ManyToMany
     private List<Message> messages;
 
-    @ManyToMany
+    @OneToMany
     @JoinTable(
             name = "chat_member",
             joinColumns = {@JoinColumn (name = "chat_id")},

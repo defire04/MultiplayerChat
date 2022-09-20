@@ -25,13 +25,13 @@ public class Member {
     private List<Chat> chatsWhereMemberIsOwner;
 
 
-    @ManyToMany
+    @ManyToOne
     @JoinTable(
             name = "chat_member",
             joinColumns = {@JoinColumn (name = "member_id")},
             inverseJoinColumns = {@JoinColumn(name = "chat_id")}
     )
-    private List<Chat> chats = new ArrayList<>();
+    private Chat chatInWhichTheUser;
 
 
     public Member() {
@@ -90,11 +90,11 @@ public class Member {
         this.chatsWhereMemberIsOwner = chatsWhereMemberIsOwner;
     }
 
-    public List<Chat> getChats() {
-        return chats;
+    public Chat getChatInWhichTheUser() {
+        return chatInWhichTheUser;
     }
 
-    public void setChats(List<Chat> chats) {
-        this.chats = chats;
+    public void setChatInWhichTheUser(Chat chatInWhichTheUser) {
+        this.chatInWhichTheUser = chatInWhichTheUser;
     }
 }

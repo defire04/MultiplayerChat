@@ -41,7 +41,7 @@ DROP TABLE chat_member;
 CREATE TABLE chat_member(
     member_id INT REFERENCES Member(id) ON DELETE SET NULL,
     chat_id INT REFERENCES Chat(id) ON DELETE SET NULL,
-    primary key (member_id, chat_id)
+    primary key (member_id)
 );
 SELECT * FROM chat_member;
 
