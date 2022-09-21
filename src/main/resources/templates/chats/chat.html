@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Chat</title>
 </head>
 <body>
+
+
+<form th:method="PATCH" th:action="@{/chats/{id}(id=${chat.getId()})}">
+    <input type="submit" value="Leave the chat"/>
+</form>
 
 </body>
 </html>

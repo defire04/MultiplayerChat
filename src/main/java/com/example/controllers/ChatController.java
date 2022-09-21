@@ -46,7 +46,7 @@ public class ChatController {
     }
 
     @GetMapping("/{id}/chat")
-    public String chat(@PathVariable("id") int id) {
+    public String chat(@PathVariable("id") int id, Model model) {
         System.out.println("------------------------");
 
         MemberDetails memberDetails = (MemberDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -55,6 +55,7 @@ public class ChatController {
         Chat chat = chatService.findOne(id);
         chat.getMembers().add(member);
 
+        model.addAttribute("chat", chat);
         chatService.update(id, chat);
 
 ////        System.out.println(member);
@@ -64,6 +65,27 @@ public class ChatController {
 
 
         return "chats/chat";
+    }
+
+
+    @PostMapping("/{id}")
+    public String leaveChat(@PathVariable("id") int id){
+        MemberDetails memberDetails = (MemberDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Member member = memberService.findOne(memberDetails.getPerson().getId());
+
+        Chat chat = chatService.findOne(id);
+
+        System.out.println(chat.getId() + " "+chat.getName());
+        System.out.println(chat.getMembers());
+        System.out.println(member.getId() + " " + member.getUsername());
+
+        System.out.println("--------------------------");
+        System.out.println(member);
+        chat.getMembers().remove(member);
+
+        System.out.println(chat.getMembers());
+        chatService.update(id, chat);
+        return "chats/index";
     }
 
 }
