@@ -16,6 +16,10 @@
 <!--</div>-->
 
 
+<form th:action="@{/chats}">
+    <input type="submit" value="Chats!">
+</form>
+
 <form th:action="@{/chats/{id}/chat(id=${chat.getId()})}">
     <input type="submit" value="Join!">
 </form>

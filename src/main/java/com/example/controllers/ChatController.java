@@ -3,7 +3,7 @@ package com.example.controllers;
 import com.example.models.Chat;
 import com.example.models.Member;
 import com.example.security.MemberDetails;
-import com.example.services.ChatMemberService;
+//import com.example.services.ChatMemberService;
 import com.example.services.ChatService;
 import com.example.services.MemberService;
 import com.example.services.MessageService;
@@ -22,14 +22,14 @@ public class ChatController {
 
     private final MemberService memberService;
 
-    private final ChatMemberService chatMemberService;
+
 
     @Autowired
-    public ChatController(ChatService chatService, MessageService messageService, MemberService memberService, ChatMemberService chatMemberService) {
+    public ChatController(ChatService chatService, MessageService messageService, MemberService memberService) {
         this.chatService = chatService;
         this.messageService = messageService;
         this.memberService = memberService;
-        this.chatMemberService = chatMemberService;
+
     }
 
 
