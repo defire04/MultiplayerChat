@@ -45,4 +45,7 @@ CREATE TABLE chat_member(
 );
 SELECT * FROM chat_member;
 
+
 INSERT INTO chat_member (member_id, chat_id) VALUES (2, 1);
+
+DELETE  from chat_member where member_id=1;

@@ -3,6 +3,7 @@ package com.example.controllers;
 import com.example.models.Chat;
 import com.example.models.Member;
 import com.example.security.MemberDetails;
+import com.example.services.ChatMemberService;
 import com.example.services.ChatService;
 import com.example.services.MemberService;
 import com.example.services.MessageService;
@@ -11,8 +12,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/chats")
@@ -23,11 +22,14 @@ public class ChatController {
 
     private final MemberService memberService;
 
+    private final ChatMemberService chatMemberService;
+
     @Autowired
-    public ChatController(ChatService chatService, MessageService messageService, MemberService memberService) {
+    public ChatController(ChatService chatService, MessageService messageService, MemberService memberService, ChatMemberService chatMemberService) {
         this.chatService = chatService;
         this.messageService = messageService;
         this.memberService = memberService;
+        this.chatMemberService = chatMemberService;
     }
 
 
@@ -74,18 +76,13 @@ public class ChatController {
         Member member = memberService.findOne(memberDetails.getPerson().getId());
 
         Chat chat = chatService.findOne(id);
-
-        System.out.println(chat.getId() + " "+chat.getName());
-        System.out.println(chat.getMembers());
-        System.out.println(member.getId() + " " + member.getUsername());
-
-        System.out.println("--------------------------");
-        System.out.println(member);
         chat.getMembers().remove(member);
 
-        System.out.println(chat.getMembers());
+
         chatService.update(id, chat);
-        return "chats/index";
+
+
+        return "redirect:" + id;
     }
 
 }
