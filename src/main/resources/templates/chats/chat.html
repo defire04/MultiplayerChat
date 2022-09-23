@@ -2,26 +2,71 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <style>
+        body {
+            margin: 0 auto;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .container {
+            border: 2px solid #dedede;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+
+        .container::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        .container img {
+            float: left;
+            max-width: 60px;
+            width: 100%;
+            margin-right: 20px;
+            border-radius: 50%;
+        }
+
+        .time-right {
+            float: right;
+            color: #aaa;
+        }
+
+
+    </style>
     <title>Chat</title>
 </head>
-<body>
+<body style="max-width: 800px">
 
-<form th:method="PATCH" th:action="@{/chats/send/{id}(id=${chat.getId()})}">
-    <textarea rows="7" cols="35" name="text">
+    <h2>Chat Messages</h2>
 
-    </textarea><br>
-    <button type="submit">Send message</button>
-</form>
+    <div class="container" th:each="message : ${chat.getMessages()}">
+        <p th:text="${message.getText()}">Message</p>
+        <span th:text="${message.getUsername() + ' ' +message.getSentAt()}" class="time-right">Username  11:00</span>
+    </div>
 
 
-<form th:method="PATCH" th:action="@{/chats/{id}(id=${chat.getId()})}">
-    <input type="submit" value="Leave from chat "/>
-</form>
+    <form style="width:100%;" th:method="PATCH" th:action="@{/chats/send/{id}(id=${chat.getId()})}">
+        <label>
+            <textarea rows="7" cols="35" name="text"></textarea>
+        </label>
+        <br>
+        <button type="submit">Send message</button>
+    </form>
 
-<form th:action="@{/chats}">
-    <input type="submit" value="Chats!">
-</form>
 
+    <form th:method="PATCH" th:action="@{/chats/{id}(id=${chat.getId()})}">
+        <input type="submit" value="Leave from chat "/>
+    </form>
+
+    <form th:action="@{/chats}">
+        <input type="submit" value="Chats!">
+    </form>
 
 </body>
 </html>

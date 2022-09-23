@@ -25,6 +25,9 @@ public class Message {
     @Temporal(TemporalType.TIMESTAMP)
     private Date sentAt;
 
+    @Column(name = "members_username")
+    private String username;
+
     @ManyToOne
     @JoinTable(
             name = "chat_messages",
@@ -44,11 +47,12 @@ public class Message {
     public Message() {
     }
 
-    public Message(int userId, int chatId, String text) {
+    public Message(int userId, int chatId, String text, String username) {
         this.userId = userId;
         this.chatId = chatId;
         this.text = text;
         this.sentAt = new Date();
+        this.username = username;
     }
 
     public int getId() {
@@ -89,5 +93,13 @@ public class Message {
 
     public void setSentAt(Date sentAt) {
         this.sentAt = sentAt;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

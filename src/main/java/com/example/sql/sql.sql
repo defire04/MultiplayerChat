@@ -32,7 +32,8 @@ CREATE TABLE Message(
   user_id INT REFERENCES Member(id) ON DELETE SET NULL,
   chat_id INT REFERENCES Chat(id) ON DELETE SET NULL,
   text VARCHAR NOT NULL,
-  sent_at TIMESTAMP
+  sent_at TIMESTAMP,
+  members_username VARCHAR NOT NULL
 );
 
 INSERT INTO Message (user_id, chat_id, text, sent_at) VALUES (1,1,'Hello Chat!', TIMESTAMP '2022-9-10 16:23:54');
@@ -61,10 +62,3 @@ CREATE TABLE chat_messages(
 );
 
 SELECT * FROM chat_messages;
--- select messages0_.chat_id as chat_id1_2_0_, messages0_.messages_id as messages2_2_0_, message1_.id as id1_4_1_, message1_.chat_id as chat_id2_4_1_,
---        message1_.sent_at as sent_at3_4_1_, message1_.text as text4_4_1_, message1_.user_id as user_id5_4_1_
--- from chat_messages messages0_ inner join message message1_ on messages0_.messages_id=message1_.id where messages0_.chat_id=?;
---
--- select messages0_.chat_id as chat_id2_2_0_, messages0_.messages_id as messages6_2_0_, message1_.id as id1_2_1_,
---        message1_.chat_id as chat_id2_2_1_, message1_.sent_at as sent_at3_2_1_, message1_.text as text4_2_1_,
---        message1_.user_id as user_id5_2_1_ from chat_messages messages0_ inner join chat_messages message1_ on messages0_.messages_id=message1_.id where messages0_.chat_id=?
