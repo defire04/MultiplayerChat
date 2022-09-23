@@ -27,7 +27,12 @@ public class Chat {
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
     private Member owner;
 
-    @ManyToMany
+    @OneToMany
+    @JoinTable(
+            name = "chat_messages",
+            joinColumns = {@JoinColumn (name = "chat_id")},
+            inverseJoinColumns = {@JoinColumn(name = "message_id")}
+    )
     private List<Message> messages;
 
     @OneToMany
@@ -92,4 +97,9 @@ public class Chat {
     public void setMembers(List<Member> members) {
         this.members = members;
     }
+
+    public boolean isMemberInChat(Member member){
+       return this.members.contains(member);
+    }
+
 }

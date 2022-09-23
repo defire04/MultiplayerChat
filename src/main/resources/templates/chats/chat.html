@@ -6,10 +6,22 @@
 </head>
 <body>
 
+<form th:method="PATCH" th:action="@{/chats/send/{id}(id=${chat.getId()})}">
+    <textarea rows="7" cols="35" name="text">
+
+    </textarea><br>
+    <button type="submit">Send message</button>
+</form>
+
 
 <form th:method="PATCH" th:action="@{/chats/{id}(id=${chat.getId()})}">
-    <input type="submit" value="Leave the chat"/>
+    <input type="submit" value="Leave from chat "/>
 </form>
+
+<form th:action="@{/chats}">
+    <input type="submit" value="Chats!">
+</form>
+
 
 </body>
 </html>

@@ -97,4 +97,16 @@ public class Member {
     public void setChatInWhichTheUser(Chat chatInWhichTheUser) {
         this.chatInWhichTheUser = chatInWhichTheUser;
     }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                ", chatsWhereMemberIsOwner=" + chatsWhereMemberIsOwner +
+                ", chatInWhichTheUser=" + chatInWhichTheUser +
+                '}';
+    }
 }

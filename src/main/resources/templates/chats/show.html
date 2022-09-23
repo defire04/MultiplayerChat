@@ -20,9 +20,17 @@
     <input type="submit" value="Chats!">
 </form>
 
-<form th:action="@{/chats/{id}/chat(id=${chat.getId()})}">
-    <input type="submit" value="Join!">
-</form>
+<div th:if="${!chat.isMemberInChat(member)}">
+    <form th:method="PATCH" th:action="@{/chats/{id}/chat(id=${chat.getId()})}">
+        <input type="submit" value="Join!">
+    </form>
+</div>
+
+<div th:if="${chat.isMemberInChat(member)}">
+    <form th:action="@{/chats/{id}/chat(id=${chat.getId()})}">
+        <input type="submit" value="To chat!">
+    </form>
+</div>
 
 </body>
 </html>

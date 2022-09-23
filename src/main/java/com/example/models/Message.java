@@ -25,7 +25,30 @@ public class Message {
     @Temporal(TemporalType.TIMESTAMP)
     private Date sentAt;
 
+    @ManyToOne
+    @JoinTable(
+            name = "chat_messages",
+            joinColumns = {@JoinColumn (name = "message_id")},
+            inverseJoinColumns = {@JoinColumn(name = "chat_id")}
+    )
+    private Chat chat;
+
+    public Chat getChat() {
+        return chat;
+    }
+
+    public void setChat(Chat chat) {
+        this.chat = chat;
+    }
+
     public Message() {
+    }
+
+    public Message(int userId, int chatId, String text) {
+        this.userId = userId;
+        this.chatId = chatId;
+        this.text = text;
+        this.sentAt = new Date();
     }
 
     public int getId() {

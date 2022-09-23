@@ -2,6 +2,7 @@ package com.example.controllers;
 
 import com.example.models.Chat;
 import com.example.models.Member;
+import com.example.models.Message;
 import com.example.security.MemberDetails;
 //import com.example.services.ChatMemberService;
 import com.example.services.ChatService;
@@ -23,7 +24,6 @@ public class ChatController {
     private final MemberService memberService;
 
 
-
     @Autowired
     public ChatController(ChatService chatService, MessageService messageService, MemberService memberService) {
         this.chatService = chatService;
@@ -42,14 +42,26 @@ public class ChatController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
         model.addAttribute("chat", chatService.findOne(id));
-
         model.addAttribute("messages", messageService.findMessageByChatId(id));
+
+        MemberDetails memberDetails = (MemberDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Member member = memberService.findOne(memberDetails.getPerson().getId());
+
+        model.addAttribute("member", member);
+
         return "chats/show";
     }
 
+
     @GetMapping("/{id}/chat")
     public String chat(@PathVariable("id") int id, Model model) {
-        System.out.println("------------------------");
+        model.addAttribute("chat", chatService.findOne(id));
+        return "chats/chat";
+    }
+
+    @PostMapping("/{id}/chat")
+    public String addToChat(@PathVariable("id") int id, Model model) {
+
 
         MemberDetails memberDetails = (MemberDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Member member = memberDetails.getPerson();
@@ -65,13 +77,12 @@ public class ChatController {
 //        System.out.println(member.getUsername());
 
 
-
         return "chats/chat";
     }
 
 
     @PostMapping("/{id}")
-    public String leaveChat(@PathVariable("id") int id){
+    public String leaveChat(@PathVariable("id") int id) {
         MemberDetails memberDetails = (MemberDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Member member = memberService.findOne(memberDetails.getPerson().getId());
 
@@ -83,6 +94,25 @@ public class ChatController {
 
 
         return "redirect:" + id;
+    }
+
+    @PostMapping("/send/{id}")
+    public String send(@PathVariable("id") int id, Model model, @RequestParam("text") String text) {
+        Chat chat = chatService.findOne(id);
+        Member member = memberService.findOne(((MemberDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getPerson().getId());
+
+        Message message = new Message(member.getId(), chat.getId(), text);
+        chat.getMessages().add(message);
+
+
+        messageService.save(message);
+        chatService.update(id, chat);
+
+        model.addAttribute("chat", chat);
+
+
+
+        return "chats/chat";
     }
 
 }
