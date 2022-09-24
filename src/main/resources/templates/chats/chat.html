@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+<!--    <meta http-equiv="Refresh" content="5;"/>-->
     <style>
         body {
             margin: 0 auto;
@@ -15,6 +16,8 @@
             border-radius: 5px;
             padding: 10px;
             margin: 10px 0;
+
+
         }
 
 
@@ -41,23 +44,29 @@
     </style>
     <title>Chat</title>
 </head>
+
+
+
 <body style="max-width: 800px">
 
     <h2>Chat Messages</h2>
 
-    <div class="container" th:each="message : ${chat.getMessages()}">
-        <p th:text="${message.getText()}">Message</p>
-        <span th:text="${message.getUsername() + ' ' +message.getSentAt()}" class="time-right">Username  11:00</span>
+    <div class="container" style="height: 500px; overflow-y: scroll;">
+        <div class="container" th:each="message : ${chat.getMessages()}">
+            <p th:text="${message.getText()}">Message</p>
+            <span th:text="${message.getUsername() + ' ' +message.getSentAt()}" class="time-right">Username  11:00</span>
+        </div>
+
+        <form style="width:100%;" th:method="PATCH" th:action="@{/chats/send/{id}#last-message(id=${chat.getId()})}" id="last-message" >
+            <label>
+                <textarea rows="5" cols="102" name="text"></textarea>
+            </label>
+            <br>
+            <button type="submit">Send message</button>
+        </form>
     </div>
 
 
-    <form style="width:100%;" th:method="PATCH" th:action="@{/chats/send/{id}(id=${chat.getId()})}">
-        <label>
-            <textarea rows="7" cols="35" name="text"></textarea>
-        </label>
-        <br>
-        <button type="submit">Send message</button>
-    </form>
 
 
     <form th:method="PATCH" th:action="@{/chats/{id}(id=${chat.getId()})}">
@@ -67,6 +76,13 @@
     <form th:action="@{/chats}">
         <input type="submit" value="Chats!">
     </form>
+
+
+<!--    <script>-->
+<!--        setTimeout(function(){-->
+<!--            location.reload();-->
+<!--        }, 3000);-->
+<!--    </script>-->
 
 </body>
 </html>

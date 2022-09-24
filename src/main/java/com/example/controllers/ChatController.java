@@ -73,6 +73,13 @@ public class ChatController {
         return "redirect:" + id;
     }
 
+
+    @GetMapping("/send/{id}")
+    public String send(@PathVariable("id") int id, Model model) {
+        model.addAttribute("chat", chatService.findOne(id));
+        return "chats/chat";
+    }
+
     @PostMapping("/send/{id}")
     public String send(@PathVariable("id") int id, Model model, @RequestParam("text") String text) {
         Chat chat = chatService.findOne(id);

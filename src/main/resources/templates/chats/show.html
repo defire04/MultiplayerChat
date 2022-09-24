@@ -21,13 +21,13 @@
 </form>
 
 <div th:if="${!chat.isMemberInChat(member)}">
-    <form th:method="PATCH" th:action="@{/chats/{id}/chat(id=${chat.getId()})}">
+    <form th:method="PATCH" th:action="@{/chats/{id}/chat#last-message(id=${chat.getId()})}">
         <input type="submit" value="Join!">
     </form>
 </div>
 
 <div th:if="${chat.isMemberInChat(member)}">
-    <form th:action="@{/chats/{id}/chat(id=${chat.getId()})}">
+    <form th:action="@{/chats/{id}/chat#last-message(id=${chat.getId()})}">
         <input type="submit" value="To chat!">
     </form>
 </div>
