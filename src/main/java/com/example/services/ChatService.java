@@ -45,4 +45,8 @@ public class ChatService {
     public void delete(int id) {
         chatRepository.deleteById(id);
     }
+
+    public Optional<Chat> getChatByName(String name){
+        return chatRepository.getChatByName(name);
+    }
 }

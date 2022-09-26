@@ -32,5 +32,9 @@
     </form>
 </div>
 
+<form th:method="delete" th:action="@{/chats/delete/{id}(id=${chat.getId()})}">
+    <button type="submit" value="Delete chat!" style="background: red">Delete chat!!!</button>
+</form>
+
 </body>
 </html>

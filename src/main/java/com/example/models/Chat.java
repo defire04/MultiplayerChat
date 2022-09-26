@@ -44,10 +44,12 @@ public class Chat {
     private List<Member> members = new ArrayList<>();
 
     public Chat() {
+        this.createdAt = new Date();
     }
 
     public Chat(String name) {
         this.name = name;
+        this.createdAt = new Date();
     }
 
     public int getId() {
