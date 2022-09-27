@@ -11,11 +11,13 @@
     <label for="name">Enter chat name: </label>
     <input type="text" th:field="*{name}" id="name"/>
     <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
-
     <br>
 
+    <label for="description">Enter description: </label>
+    <textarea type="text" th:field="*{description}" id="description">Enter description:</textarea>
+    <div style="color:red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description Error</div>
 
-
+    <br>
     <input type="submit" value="Create the chat!"/>
 
 

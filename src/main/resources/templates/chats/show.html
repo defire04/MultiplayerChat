@@ -5,15 +5,11 @@
     <title>Chat</title>
 </head>
 <body>
-<p th:text="${'Chat: ' + chat.getName()}">VALUE</p>
-<p th:text="${'Owner: ' + chat.getOwner()}">VALUE</p>
-<p th:text="${'CratedAt: ' + chat.getCreatedAt()}">VALUE</p>
-<!--<p th:text="${'Message: '}">VALUE</p>-->
+<p th:text="${'Chat: ' + chat.getName()}">Chat of title</p>
+<p th:text="${'Owner: ' + owner.getUsername()}">Owner</p>
+<p th:text="${'CratedAt: ' + chat.getCreatedAt()}">Created at</p>
+<p th:text="${'Description: ' + chat.getDescription()}">Description</p>
 
-
-<!--<div th:each="msg : ${messages}">-->
-<!--   <p th:text="${msg.getText()}">text</p>-->
-<!--</div>-->
 
 
 <form th:action="@{/chats}">
@@ -21,7 +17,7 @@
 </form>
 
 <div th:if="${!chat.isMemberInChat(member)}">
-    <form th:method="PATCH" th:action="@{/chats/{id}/chat#last-message(id=${chat.getId()})}">
+    <form th:method="POST" th:action="@{/chats/{id}/chat#last-message(id=${chat.getId()})}">
         <input type="submit" value="Join!">
     </form>
 </div>
@@ -32,7 +28,7 @@
     </form>
 </div>
 
-<form th:method="delete" th:action="@{/chats/delete/{id}(id=${chat.getId()})}">
+<form th:method="DELETE" th:action="@{/chats/delete/{id}(id=${chat.getId()})}">
     <button type="submit" value="Delete chat!" style="background: red">Delete chat!!!</button>
 </form>
 

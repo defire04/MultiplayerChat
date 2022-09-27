@@ -57,7 +57,7 @@
             <span th:text="${message.getUsername() + ' ' +message.getSentAt()}" class="time-right">Username  11:00</span>
         </div>
 
-        <form style="width:100%;" th:method="PATCH" th:action="@{/chats/send/{id}#last-message(id=${chat.getId()})}" id="last-message" >
+        <form style="width:100%;" th:method="POST" th:action="@{/chats/send/{id}#last-message(id=${chat.getId()})}" id="last-message" >
             <label>
                 <textarea rows="5" cols="102" name="text"></textarea>
             </label>
@@ -69,7 +69,7 @@
 
 
 
-    <form th:method="PATCH" th:action="@{/chats/{id}(id=${chat.getId()})}">
+    <form th:method="POST" th:action="@{/chats/{id}(id=${chat.getId()})}">
         <input type="submit" value="Leave from chat "/>
     </form>
 

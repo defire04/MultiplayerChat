@@ -43,6 +43,8 @@ public class Chat {
     )
     private List<Member> members = new ArrayList<>();
 
+    @Column(name = "description")
+    private String description;
     public Chat() {
         this.createdAt = new Date();
     }
@@ -104,4 +106,11 @@ public class Chat {
        return this.members.contains(member);
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

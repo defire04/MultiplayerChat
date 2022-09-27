@@ -42,11 +42,12 @@ public class ChatController {
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
-        Member member = getCurrentMemberFromContext();
+        Chat chat = chatService.findOne(id);
 
-        model.addAttribute("member", member);
-        model.addAttribute("chat", chatService.findOne(id));
-//        model.addAttribute("messages", messageService.findMessageByChatId(id));
+        model.addAttribute("chat", chat);
+        model.addAttribute("owner", chat.getOwner());
+        model.addAttribute("member", getCurrentMemberFromContext());
+
         return "chats/show";
     }
 
